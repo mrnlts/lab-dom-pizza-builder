@@ -64,7 +64,7 @@ function renderGreenPeppers() {
 
 function renderWhiteSauce() {
   let sauce = document.querySelector('#pizza .sauce');
-  if (state.whiteSauce === true){
+  if (state.whiteSauce === true) {
     sauce.classList.add('sauce-white');
   } else {
     sauce.classList.remove('sauce-white');
@@ -74,7 +74,7 @@ function renderWhiteSauce() {
 
 function renderGlutenFreeCrust() {
   let pizzacrust = document.querySelector('#pizza .crust');
-  if (state.glutenFreeCrust === true){
+  if (state.glutenFreeCrust === true) {
     pizzacrust.classList.add('crust-gluten-free');
   } else {
     pizzacrust.classList.remove('crust-gluten-free');
@@ -112,7 +112,29 @@ function renderButtons() {
 }
 
 function renderPrice() {
-  // Iteration 4: change the HTML of `<aside class="panel price">`
+  const stateArr = [...this.state.map()];
+  const ingredientArr = stateArr.filter((i) => i.includes('true'));
+  const priceArr = ingredientArr.forEach(() => {
+    switch(ingredient) {
+      case 'ingredient.includes("pepperoni")':
+        ingredient = 1;
+        break;
+      case 'ingredient.includes("mushrooms")':
+        ingredient = 1;
+        break;
+      case 'ingredient.includes("greenPeppers")':
+        ingredient = 1;
+        break;
+      case 'ingredient.includes("whiteSauce")':
+        ingredient = 3;
+        break;
+      case 'ingredient.includes("glutenFreeCrust")':
+        ingredient = 3;
+        break;
+    }
+  });
+  let finalPrice = priceArr.reduce((acc, curr) => acc+curr);
+  document.querySelector('aside strong').innerText = `$${10+finalPrice}`;
 }
 
 renderEverything();
