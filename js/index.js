@@ -112,29 +112,19 @@ function renderButtons() {
 }
 
 function renderPrice() {
-  const stateArr = [...this.state.map()];
-  const ingredientArr = stateArr.filter((i) => i.includes('true'));
-  const priceArr = ingredientArr.forEach(() => {
-    switch(ingredient) {
-      case 'ingredient.includes("pepperoni")':
-        ingredient = 1;
-        break;
-      case 'ingredient.includes("mushrooms")':
-        ingredient = 1;
-        break;
-      case 'ingredient.includes("greenPeppers")':
-        ingredient = 1;
-        break;
-      case 'ingredient.includes("whiteSauce")':
-        ingredient = 3;
-        break;
-      case 'ingredient.includes("glutenFreeCrust")':
-        ingredient = 3;
-        break;
+  let finalPrice = 0;
+  let stateArr = Object.values(state);
+  let ingredientArr = Object.values(ingredients);
+  let pricePanel = document.querySelector('aside ul');
+  pricePanel.innerHTML = '';
+  for (let i = 0; i < stateArr.length; i++) {
+    if (stateArr[i] === true) {
+      pricePanel.innerHTML += `<li>$${ingredientArr[i].price} ${ingredientArr[i].name}</li>`;
+      finalPrice += ingredientArr[i].price;
     }
-  });
-  let finalPrice = priceArr.reduce((acc, curr) => acc+curr);
-  document.querySelector('aside strong').innerText = `$${10+finalPrice}`;
+  };
+  
+  document.querySelector('aside strong').innerText = `$${basePrice+finalPrice}`;
 }
 
 renderEverything();
